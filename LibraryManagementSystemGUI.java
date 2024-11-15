@@ -193,12 +193,14 @@ public class LibraryManagementSystemGUI extends JFrame {
         
         // Buttons Panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(4, 2, 10, 10));
+        buttonPanel.setLayout(new GridLayout(6, 2, 10, 10));
         
         JButton addBookBtn = new JButton("Add Book");
         JButton removeBookBtn = new JButton("Remove Book");
         JButton searchBookBtn = new JButton("Search Book");
         JButton displayBooksBtn = new JButton("Display Books");
+        JButton lendBookBtn = new JButton("Lend Book");
+        JButton returnBookBtn = new JButton("Return Book");
         
         JButton addMemberBtn = new JButton("Add Member");
         JButton removeMemberBtn = new JButton("Remove Member");
@@ -209,6 +211,8 @@ public class LibraryManagementSystemGUI extends JFrame {
         buttonPanel.add(removeBookBtn);
         buttonPanel.add(searchBookBtn);
         buttonPanel.add(displayBooksBtn);
+        buttonPanel.add(lendBookBtn);
+        buttonPanel.add(returnBookBtn);
         buttonPanel.add(addMemberBtn);
         buttonPanel.add(removeMemberBtn);
         buttonPanel.add(searchMemberBtn);
@@ -253,6 +257,19 @@ public class LibraryManagementSystemGUI extends JFrame {
             for (Book book : library.getBooks()) {
                 displayArea.append(book.toString() + "\n");
             }
+        });
+
+        lendBookBtn.addActionListener(e -> {
+            String title = JOptionPane.showInputDialog("Enter Book Title to Lend:");
+            int memberId = Integer.parseInt(JOptionPane.showInputDialog("Enter Member ID:"));
+            library.lendBook(title, memberId);
+            displayArea.setText("Lend operation completed.");
+        });
+
+        returnBookBtn.addActionListener(e -> {
+            String title = JOptionPane.showInputDialog("Enter Book Title to Return:");
+            library.returnBook(title);
+            displayArea.setText("Return operation completed.");
         });
 
         addMemberBtn.addActionListener(e -> {
